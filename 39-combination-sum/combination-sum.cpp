@@ -1,29 +1,28 @@
 class Solution {
-private:
-    void backtrack(const vector<int>& candidates, int start, int target, vector<int>& path,     vector<vector<int>>& result) 
+public:
+   void backtracking(vector<int>&candidate, int target, vector<vector<int>>&ans, vector<int>&temp,int start)
+   {
+    if(target == 0)
     {
-
-        if (target == 0) {
-            result.push_back(path);
-            return;
-        }
-        if (target < 0) 
-        {
-            return;
-        }
-        for (int i = start; i < candidates.size(); ++i) 
-        {
-            path.push_back(candidates[i]);
-            backtrack(candidates, i, target - candidates[i], path, result);
-            path.pop_back();
-        }
+        ans.push_back(temp);
+        return ;
     }
-    public:
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<vector<int>> result;
-        vector<int> path;
-        // sort(candidates.begin(), candidates.end());
-        backtrack(candidates, 0, target, path, result);
-        return result;
+    if(target < 0)
+    {
+        return ;
+    }
+    for(int i = start;i<candidate.size();i++)
+    {
+        temp.push_back(candidate[i]);
+        backtracking(candidate, target-candidate[i], ans,temp,i);
+        temp.pop_back();
+    }
+   }
+    vector<vector<int>> combinationSum(vector<int>& candidate, int target) {
+        vector<vector<int>>ans;
+        vector<int>temp;
+        backtracking(candidate,target, ans,temp,0);
+        return ans;
+
     }
 };
