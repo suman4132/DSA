@@ -20,18 +20,18 @@ int countOfPalindrom(string s)
         int count = 0;
         vector<vector<bool>> dp(n, vector<bool>(n, false));
 
-        for (int len = 1; len <= n; len++) {
-            for (int i = 0; i <= n - len; i++) {
-                int j = i + len - 1;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j <= n - i; j++) {
+                int k = j + i - 1;
 
-                if (s[i] == s[j]) {
-                    if (len == 1 || len == 2)
-                        dp[i][j] = true;
+                if (s[j] == s[k]) {
+                    if (i == 1 || i == 2)
+                        dp[j][k] = true;
                     else
-                        dp[i][j] = dp[i + 1][j - 1];
+                        dp[j][k] = dp[j + 1][k - 1];
                 }
 
-                if (dp[i][j])
+                if (dp[j][k])
                     count++;
             }
         }
