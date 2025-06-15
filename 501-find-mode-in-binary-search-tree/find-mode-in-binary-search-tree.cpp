@@ -11,34 +11,37 @@
  */
 class Solution {
 public:
-    void inorder(TreeNode* root, vector<int>& v) {
-        if (!root) return;
+    void inorder(TreeNode* root, vector<int>&v)
+    {
+        if(!root)
+         return ;
         inorder(root->left, v);
         v.push_back(root->val);
-        inorder(root->right, v);
+        inorder(root->right, v); 
     }
-
     vector<int> findMode(TreeNode* root) {
-        vector<int> v;
+        vector<int>v;
         inorder(root, v);
-
-        unordered_map<int, int> freq;
-        for (int val : v) {
-            freq[val]++;
+        unordered_map<int, int>temp;
+        for(int i =0;i<v.size(); i++)
+        {
+           temp[v[i]]++;
+        }
+       int ma = 0;
+        for(auto & [key, val] : temp)
+        {
+            ma = max(ma , val);
         }
 
-        int maxFreq = 0;
-        for (auto& [key, value] : freq) {
-            maxFreq = max(maxFreq, value);
-        }
-
-        vector<int> modes;
-        for (auto& [key, value] : freq) {
-            if (value == maxFreq) {
-                modes.push_back(key);
+        vector<int>mode;
+        for(auto [key , val] : temp)
+        {
+            if(val == ma)
+            {
+                mode.push_back(key);
             }
         }
 
-        return modes;
+        return mode;
     }
 };
